@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoBackup", "AutoBackup\AutoBackup.csproj", "{7BAC2247-1D1F-4F56-B2F6-9C83483847FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BAC2247-1D1F-4F56-B2F6-9C83483847FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BAC2247-1D1F-4F56-B2F6-9C83483847FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BAC2247-1D1F-4F56-B2F6-9C83483847FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BAC2247-1D1F-4F56-B2F6-9C83483847FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3FA75EB8-D016-432B-9AF9-AC59806DA931}
+	EndGlobalSection
+EndGlobal
