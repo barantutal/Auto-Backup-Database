@@ -1,3 +1,5 @@
-# AutoBackup
+# Auto Backup Database
  
-Auto backup application using dropbox and quartz. Readme will be updated soon.
+ ![](https://img.shields.io/static/v1?label=.Net%20Core&message=v3.1&color=)
+ 
+Auto backup application using Dropbox and Quartz. Readme will be updated soon.
