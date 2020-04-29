@@ -10,6 +10,7 @@ namespace AutoBackup
         public static string dropboxToken = "**YOUR DROPBOX APP TOKEN**";
         public static string dropboxFolder = "/backups/";
         public static string command = "mysqldump -u root_ --default-character-set=utf8 --all-databases > ";
+        public static int totalBackupFilesToKeep = 6;
 
         static async Task Main(string[] args)
         {
