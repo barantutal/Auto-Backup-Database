@@ -2,7 +2,7 @@ Auto-Backup-Database uses third-party libraries or other resources that may be
 distributed under licenses different than the Auto-Backup-Database software.
 
 1. Dropbox.Api (https://github.com/dropbox/dropbox-sdk-dotnet)
-2. Quartz (https://github.com/quartznet/quartznet)
+2. quartznet / quartznet Quartz (https://github.com/quartznet/quartznet)
 
 Dropbox.Api NOTICES AND INFORMATION BEGIN HERE
 =================================================================
@@ -30,7 +30,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 END OF Dropbox.Api NOTICES AND INFORMATION
 
 
-Quartz NOTICES AND INFORMATION BEGIN HERE
+quartznet / quartznet Quartz NOTICES AND INFORMATION BEGIN HERE
 =================================================================
                                 Apache License
                            Version 2.0, January 2004
@@ -234,4 +234,4 @@ Quartz NOTICES AND INFORMATION BEGIN HERE
    See the License for the specific language governing permissions and
    limitations under the License.
 =================================================================
-END OF Quartz NOTICES AND INFORMATION
+END OF quartznet / quartznet Quartz NOTICES AND INFORMATION
