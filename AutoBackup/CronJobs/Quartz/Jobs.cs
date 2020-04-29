@@ -16,7 +16,7 @@ namespace AutoBackup.CronJobs.Quartz
                 JobBuilder.Create<BackupDbJob>()
                 .WithIdentity("BackupDbJob").Build(),
                 TriggerBuilder.Create().WithIdentity("BackupDbJobCron")
-                .StartNow().WithCronSchedule(Program.cronExpression).Build(), new CancellationToken());
+                .WithCronSchedule(Program.cronExpression).StartNow().Build(), new CancellationToken());
         }
     }
 }

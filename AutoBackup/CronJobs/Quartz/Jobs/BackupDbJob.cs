@@ -16,7 +16,7 @@ namespace AutoBackup.CronJobs.Quartz.Jobs
 
                 if (Directory.Exists(folder_path))
                 {
-                    Directory.Delete(folder_path);
+                    Directory.Delete(folder_path, true);
                 }
 
                 Directory.CreateDirectory(folder_path);
@@ -24,13 +24,11 @@ namespace AutoBackup.CronJobs.Quartz.Jobs
                 var file_name = $"alldb{DateTime.Now:dd-MM-yyyy-HH-mm}.sql";
                 var file_path = Path.Combine(folder_path, file_name);
 
-                var stringBuilder = new StringBuilder();
-                stringBuilder.Append("mysqldump -u root_ --default-character-set=utf8 --all-databases > ");
-                stringBuilder.Append(file_path);
+                var command = new StringBuilder();
+                command.Append(Program.command);
+                command.Append(file_path);
 
-                new Bin().Bash(stringBuilder.ToString());
-
-                await Task.Delay(Program.delay);
+                new Bin().Bash(command.ToString());
 
                 await new Provider.Dropbox().Upload(file_path, file_name);
             }
