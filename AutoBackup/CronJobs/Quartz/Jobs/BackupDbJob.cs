@@ -24,7 +24,7 @@ namespace AutoBackup.CronJobs.Quartz.Jobs
 
                 Directory.CreateDirectory(folder_path);
 
-                var file_name = $"alldb{DateTime.Now:dd-MM-yyyy-HH-mm}.sql";
+                var file_name = $"alldb{DateTime.Now:dd-MM-yyyy-HH-mm}.sql.gz";
                 var file_path = Path.Combine(folder_path, file_name);
 
                 var command = new StringBuilder();
