@@ -19,7 +19,7 @@ namespace AutoBackup
         public static string googleStorageBucketName = "bucketName";
 
         public static DataProvider provider = DataProvider.GoogleCloudPlatformStorage;
-        public static string command = "mysqldump -u root_ --default-character-set=utf8 --all-databases > ";
+        public static string command = "mysqldump -u root_ --default-character-set=utf8 --all-databases | gzip -c > ";
         public static int totalBackupFilesToKeep = 12;
 
         static async Task Main(string[] args)
