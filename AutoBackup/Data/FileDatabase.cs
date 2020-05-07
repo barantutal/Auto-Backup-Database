@@ -1,4 +1,6 @@
 ﻿using AutoBackup.Entities;
+using AutoBackup.Enum;
+using AutoBackup.Provider;
 using Dropbox.Api;
 using Newtonsoft.Json;
 using System;
@@ -29,7 +31,7 @@ namespace AutoBackup.Database
             WriteDatabase(JsonConvert.SerializeObject(backupList));
         }
 
-        public async Task RemoveOldFiles(DropboxClient client)
+        public async Task RemoveOldFiles()
         {
             var json = File.ReadAllText(filename);
 
@@ -46,7 +48,18 @@ namespace AutoBackup.Database
 
                 foreach(var file in filesToDelete)
                 {
-                    await client.Files.DeleteAsync(Program.dropboxFolder + file.FileName);
+                    switch(Program.provider)
+                    {
+                        case DataProvider.GoogleCloudPlatformStorage:
+                            await new GoogleCloudStorage().DeleteFileAsync(file.FileName);
+                            break;
+                        case DataProvider.Dropbox:
+                            using (var dbx = new DropboxClient(Program.dropboxToken))
+                            {
+                                await dbx.Files.DeleteAsync(Program.dropboxFolder + file.FileName);
+                            }
+                            break;
+                    }
                 }
 
                 backupList = backupList.Except(filesToDelete).ToList();

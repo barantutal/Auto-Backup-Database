@@ -1,4 +1,7 @@
-﻿using Quartz;
+﻿using AutoBackup.Database;
+using AutoBackup.Enum;
+using AutoBackup.Provider;
+using Quartz;
 using System;
 using System.IO;
 using System.Text;
@@ -30,7 +33,19 @@ namespace AutoBackup.CronJobs.Quartz.Jobs
 
                 new Bin().Bash(command.ToString());
 
-                await new Provider.Dropbox().Upload(file_path, file_name);
+                switch (Program.provider)
+                {
+                    case DataProvider.GoogleCloudPlatformStorage:
+                        await new GoogleCloudStorage().UploadFileAsync(file_path, file_name);
+                        break;
+                    case DataProvider.Dropbox:
+                        await new Provider.Dropbox().Upload(file_path, file_name);
+                        break;
+                }
+
+                var database = new FileDatabase();
+                database.Add(file_name);
+                await database.RemoveOldFiles();
             }
             catch (Exception ex)
             {
