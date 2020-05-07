@@ -1,5 +1,4 @@
-﻿using AutoBackup.Database;
-using Dropbox.Api;
+﻿using Dropbox.Api;
 using Dropbox.Api.Files;
 using System;
 using System.IO;
@@ -13,11 +12,6 @@ namespace AutoBackup.Provider
         {
             using var dbx = new DropboxClient(Program.dropboxToken);
             await ChunkUpload(dbx, file_path, file_name);
-
-            var database = new FileDatabase();
-
-            database.Add(file_name);
-            await database.RemoveOldFiles(dbx);
         }
 
         private async Task ChunkUpload(DropboxClient client, string file_path, string file_name)
