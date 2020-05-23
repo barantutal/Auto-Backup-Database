@@ -4,18 +4,13 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace AutoBackup.Provider
+namespace AutoBackup.Infrastructure.Provider
 {
-    public class Dropbox
+    public class DropboxProvider : IProvider
     {
-        public async Task Upload(string file_path, string file_name)
+        public async Task UploadAsync(string file_path, string file_name)
         {
-            using var dbx = new DropboxClient(Program.dropboxToken);
-            await ChunkUpload(dbx, file_path, file_name);
-        }
-
-        private async Task ChunkUpload(DropboxClient client, string file_path, string file_name)
-        {
+            using var client = new DropboxClient(Program.dropboxToken);
             const int chunkSize = 50 * 1024 * 1024;
 
             var fileContent = System.IO.File.ReadAllBytes(file_path);
@@ -53,6 +48,11 @@ namespace AutoBackup.Provider
                     }
                 }
             }
+        }
+
+        public Task DeleteAsync(string fileNameForStorage)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -7,12 +7,12 @@ namespace AutoBackup
 {
     public class Bin
     {
-        public string Bash(string cmd)
+        public static string Bash(string cmd)
         {
             string str = cmd.Replace("\"", "\\\"");
             var process = new Process
             {
-                StartInfo = new ProcessStartInfo()
+                StartInfo = new ProcessStartInfo
                 {
                     FileName = "/bin/bash",
                     Arguments = "-c \"" + str + "\"",

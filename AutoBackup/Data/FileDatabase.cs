@@ -35,7 +35,10 @@ namespace AutoBackup.Database
         {
             var json = File.ReadAllText(filename);
 
-            if (string.IsNullOrWhiteSpace(json)) return;
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                return;
+            }
 
             var backupList = JsonConvert.DeserializeObject<List<BackupFile>>(json);
 
