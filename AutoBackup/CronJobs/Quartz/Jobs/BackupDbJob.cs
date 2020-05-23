@@ -1,6 +1,5 @@
 ﻿using AutoBackup.Database;
-using AutoBackup.Enum;
-using AutoBackup.Provider;
+using AutoBackup.Infrastructure.Provider;
 using Quartz;
 using System;
 using System.IO;
@@ -28,20 +27,17 @@ namespace AutoBackup.CronJobs.Quartz.Jobs
                 var file_path = Path.Combine(folder_path, file_name);
 
                 var command = new StringBuilder();
-                command.Append(Program.command);
+                command.Append("mysqldump -u root_ ");
+                command.Append("--routines ");
+                command.Append("--default-character-set=utf8 ");
+                command.Append("--all-databases ");
+                command.Append("| gzip > ");
                 command.Append(file_path);
 
-                new Bin().Bash(command.ToString());
+                Bin.Bash(command.ToString());
 
-                switch (Program.provider)
-                {
-                    case DataProvider.GoogleCloudPlatformStorage:
-                        await new GoogleCloudStorage().UploadFileAsync(file_path, file_name);
-                        break;
-                    case DataProvider.Dropbox:
-                        await new Provider.Dropbox().Upload(file_path, file_name);
-                        break;
-                }
+                var provider = new ProviderFactory().GetProvider(Program.provider);
+                await provider.UploadAsync(file_path, file_name);
 
                 var database = new FileDatabase();
                 database.Add(file_name);

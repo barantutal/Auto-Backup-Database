@@ -13,10 +13,10 @@ namespace AutoBackup.CronJobs.Quartz
             var _scheduler = await new StdSchedulerFactory().GetScheduler(new CancellationToken());
             await _scheduler.Start(new CancellationToken());
             await _scheduler.ScheduleJob(
-                JobBuilder.Create<BackupDbJob>()
-                .WithIdentity("BackupDbJob").Build(),
-                TriggerBuilder.Create().WithIdentity("BackupDbJobCron")
-                .WithCronSchedule(Program.cronExpression).StartNow().Build(), new CancellationToken());
+                    JobBuilder.Create<BackupDbJob>().WithIdentity("BackupDbJob").Build(),
+                    TriggerBuilder.Create().WithIdentity("BackupDbJobCron")
+                    .WithCronSchedule(Program.cronExpression).StartNow().Build(), new CancellationToken()
+                );
         }
     }
 }
