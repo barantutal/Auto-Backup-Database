@@ -1,32 +1,33 @@
 ﻿using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoBackup.Provider
+namespace AutoBackup.Infrastructure.Provider
 {
-    public class GoogleCloudStorage
+    public class GoogleCloudPlatformProvider : IProvider
     {
-        private readonly GoogleCredential googleCredential;
         private readonly StorageClient storageClient;
         private readonly string bucketName;
 
-        public GoogleCloudStorage()
+        public GoogleCloudPlatformProvider()
         {
-            googleCredential = GoogleCredential.FromFile(Program.googleCredentialJsonFile);
+            var googleCredential = GoogleCredential.FromFile(Program.googleCredentialJsonFile);
             storageClient = StorageClient.Create(googleCredential);
             bucketName = Program.googleStorageBucketName;
         }
 
-        public async Task<string> UploadFileAsync(string file_path, string file_name)
+        public async Task UploadAsync(string file_path, string file_name)
         {
             var fileContent = System.IO.File.ReadAllBytes(file_path);
             using var memoryStream = new MemoryStream(fileContent);
-            var dataObject = await storageClient.UploadObjectAsync(bucketName, file_name, null, memoryStream);
-            return dataObject.MediaLink;
+            await storageClient.UploadObjectAsync(bucketName, file_name, null, memoryStream);
         }
 
-        public async Task DeleteFileAsync(string fileNameForStorage)
+        public async Task DeleteAsync(string fileNameForStorage)
         {
             await storageClient.DeleteObjectAsync(bucketName, fileNameForStorage);
         }
