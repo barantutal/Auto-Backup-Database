@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoBackup.CronJobs.Quartz.Jobs
+namespace AutoBackup.CronJobs.Quartz
 {
     public class BackupDbJob : IJob
     {
@@ -41,7 +41,7 @@ namespace AutoBackup.CronJobs.Quartz.Jobs
 
                 var database = new FileDatabase();
                 database.Add(file_name);
-                await database.RemoveOldFiles();
+                await database.RemoveOldFiles(provider);
             }
             catch (Exception ex)
             {

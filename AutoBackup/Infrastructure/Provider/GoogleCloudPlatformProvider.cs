@@ -10,26 +10,26 @@ namespace AutoBackup.Infrastructure.Provider
 {
     public class GoogleCloudPlatformProvider : IProvider
     {
-        private readonly StorageClient storageClient;
-        private readonly string bucketName;
+        const string googleCredentialJsonFile = "**storage.json";
+        const string googleStorageBucketName = "**bucket-name**";
+        readonly StorageClient storageClient;
 
         public GoogleCloudPlatformProvider()
         {
-            var googleCredential = GoogleCredential.FromFile(Program.googleCredentialJsonFile);
+            var googleCredential = GoogleCredential.FromFile(googleCredentialJsonFile);
             storageClient = StorageClient.Create(googleCredential);
-            bucketName = Program.googleStorageBucketName;
         }
 
         public async Task UploadAsync(string file_path, string file_name)
         {
             var fileContent = System.IO.File.ReadAllBytes(file_path);
             using var memoryStream = new MemoryStream(fileContent);
-            await storageClient.UploadObjectAsync(bucketName, file_name, null, memoryStream);
+            await storageClient.UploadObjectAsync(googleStorageBucketName, file_name, null, memoryStream);
         }
 
         public async Task DeleteAsync(string fileNameForStorage)
         {
-            await storageClient.DeleteObjectAsync(bucketName, fileNameForStorage);
+            await storageClient.DeleteObjectAsync(googleStorageBucketName, fileNameForStorage);
         }
     }
 }
