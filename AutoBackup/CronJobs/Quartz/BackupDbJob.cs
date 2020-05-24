@@ -36,16 +36,16 @@ namespace AutoBackup.CronJobs.Quartz
 
                 Bin.Bash(command.ToString());
 
-                var provider = new ProviderFactory().GetProvider(Program.provider);
-                await provider.UploadAsync(file_path, file_name);
-
+                var provider = ProviderFactory.GetProvider(Program.provider);
                 var database = new FileDatabase();
+
+                await provider.UploadAsync(file_path, file_name);
                 database.Add(file_name);
                 await database.RemoveOldFiles(provider);
             }
             catch (Exception ex)
             {
-                using FileStream fileStream = File.Create(DateTime.UtcNow.ToString("error") + ".txt");
+                using var fileStream = File.Create(DateTime.UtcNow.ToString("error") + ".txt");
                 byte[] bytes = new UTF8Encoding(true).GetBytes(ex.ToString());
                 fileStream.Write(bytes, 0, bytes.Length);
             }
