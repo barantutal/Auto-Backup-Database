@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AutoBackup
 {
-    public class Bin
+    public static class Bin
     {
         public static string Bash(string cmd)
         {
