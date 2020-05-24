@@ -4,7 +4,7 @@ namespace AutoBackup.Infrastructure.Provider
 {
     public class ProviderFactory
     {
-        public IProvider GetProvider(DataProvider dataProvider)
+        public static IProvider GetProvider(DataProvider dataProvider)
         {
             IProvider provider = null;
 
